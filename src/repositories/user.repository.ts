@@ -19,4 +19,4 @@ class UserRepository {
   public async delete() {}
 }
 
-export const userService = new UserRepository();
+export const userRepository = new UserRepository();
