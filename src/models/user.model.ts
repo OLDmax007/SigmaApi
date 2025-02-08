@@ -1,8 +1,8 @@
 import * as mongoose from "mongoose";
 
-import {GenderEnum} from "../enums/gender.enum";
-import {RoleEnum} from "../enums/role.enum";
-import {IUser} from "../interfaces/user.interface";
+import { GenderEnum } from "../enums/gender.enum";
+import { RoleEnum } from "../enums/role.enum";
+import { IUser } from "../interfaces/user.interface";
 
 const Schema = mongoose.Schema;
 
