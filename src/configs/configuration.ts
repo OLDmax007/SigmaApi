@@ -3,8 +3,17 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export const config = {
-  port: process.env.PORT,
+  basic: {
+    port: process.env.PORT,
+    frontUrl: process.env.FRONT_ULR,
+  },
   database: {
     url: process.env.DB_URL,
+  },
+  jwt: {
+    accessSecret: process.env.JWT_ACCESS_SECRET,
+    refreshSecret: process.env.JWT_REFRESH_SECRET,
+    accessExpiresIn: process.env.JWT_ACCESS_EXPIRES_IN,
+    refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
   },
 };

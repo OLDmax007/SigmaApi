@@ -9,9 +9,9 @@ const app = express();
 const start = async () => {
   app.use("/api/users", userRouter);
 
-  app.listen(config.port, async () => {
+  app.listen(config.basic.port, async () => {
     await mongoose.connect(config.database.url);
-    console.log("http://localhost:" + config.port);
+    console.log(config.basic.frontUrl + config.basic.port);
   });
 };
 
