@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 
+import logger from "../helpers/logger.helper";
+
 class UserController {
   public async getItems(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       next(e);
     }
   }
@@ -12,7 +14,7 @@ class UserController {
   public async getByFilters(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       next(e);
     }
   }
@@ -20,7 +22,7 @@ class UserController {
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       next(e);
     }
   }
@@ -28,7 +30,7 @@ class UserController {
   public async getByEmail(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       next(e);
     }
   }
@@ -36,7 +38,7 @@ class UserController {
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       next(e);
     }
   }
@@ -44,7 +46,7 @@ class UserController {
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
     } catch (e) {
-      console.error(e);
+      logger.error(e);
       next(e);
     }
   }

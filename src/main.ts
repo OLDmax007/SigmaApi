@@ -7,7 +7,7 @@ import { userRouter } from "./routes/user.router";
 const app = express();
 
 const start = async () => {
-  app.use("/users", userRouter);
+  app.use("/api/users", userRouter);
 
   app.listen(config.port, async () => {
     await mongoose.connect(config.database.url);
