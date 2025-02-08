@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import { config } from "../configs/configuration";
+import { TokenEnum } from "../enums/token.enum";
 import { ITokenPair, ITokenPayload } from "../interfaces/token.interface";
 
 class TokenService {
@@ -23,7 +24,7 @@ class TokenService {
     return { accessToken, refreshToken };
   }
 
-  public verifyToken(token: string, type: string): ITokenPayload {
+  public verifyToken(token: string, type: TokenEnum): ITokenPayload {
     let secret: string;
 
     switch (type) {

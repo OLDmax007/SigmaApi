@@ -10,8 +10,11 @@ export interface IUser {
   email: string;
   phone: string;
   password: string;
-  statusMarried: boolean;
-  role: RoleEnum;
+  statusMarried?: boolean;
+  role?: RoleEnum;
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type IUserCreate = Omit<IUser, "_id" | "createdAt" | "updatedAt">;
+export type IUserLogin = Pick<IUser, "email" | "password">;

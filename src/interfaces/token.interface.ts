@@ -10,6 +10,10 @@ export interface IToken {
 }
 
 export type ITokenPair = Pick<IToken, "accessToken" | "refreshToken">;
+export type ITokenPairAndId = Pick<
+  IToken,
+  "_userId" | "accessToken" | "refreshToken"
+>;
 
 export interface ITokenPayload {
   userId: string;
