@@ -1,15 +1,16 @@
 import jwt from "jsonwebtoken";
 
 import { config } from "../configs/configuration";
+import { ITokenPair, ITokenPayload } from "../interfaces/token.interface";
 
 class TokenService {
-  public generateTokens(payload: any) {
+  public generateTokens(payload: ITokenPayload): ITokenPair {
     const options = {
       algorithm: config.jwt.algorithm as jwt.Algorithm,
       issuer: config.jwt.issuer,
     };
 
-    const actionToken = jwt.sign(payload, config.jwt.accessSecret, {
+    const accessToken = jwt.sign(payload, config.jwt.accessSecret, {
       ...options,
       expiresIn: config.jwt.accessExpiresIn,
     });
@@ -19,10 +20,10 @@ class TokenService {
       expiresIn: config.jwt.refreshExpiresIn,
     });
 
-    return { actionToken, refreshToken };
+    return { accessToken, refreshToken };
   }
 
-  public verifyToken(payload: any, type: string) {
+  public verifyToken(token: string, type: string): ITokenPayload {
     let secret: string;
 
     switch (type) {
@@ -36,7 +37,8 @@ class TokenService {
         throw new Error("Invalid token type");
     }
 
-    return jwt.verify(payload, secret);
+    const decode = jwt.verify(token, secret) as ITokenPayload;
+    return decode;
   }
 }
 
