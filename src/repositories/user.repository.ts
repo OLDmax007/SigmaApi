@@ -1,17 +1,13 @@
-import { IUser, IUserCreate, IUserLogin } from "../interfaces/user.interface";
+import { IUser, IUserCreate, IUserUpdate } from "../interfaces/user.interface";
 import { User } from "../models/user.model";
 
 class UserRepository {
-  public async singUp(dto: IUserCreate): Promise<IUser> {
+  public async create(dto: IUserCreate): Promise<IUser> {
     return await User.create(dto);
   }
 
-  public async singIn(dto: IUserLogin): Promise<IUser> {
-    return await User.findOne(dto);
-  }
-
-  public async getByFilters(filters: Partial<IUser>): Promise<IUser[]> {
-    return await User.find(filters);
+  public async getByFilters(query: Partial<IUser>): Promise<IUser[]> {
+    return await User.find(query);
   }
 
   public async getById(userId: string): Promise<IUser> {
@@ -22,9 +18,13 @@ class UserRepository {
     return await User.findOne({ email });
   }
 
-  public async update() {}
+  public async update(dto: IUserUpdate) {
+    return await User.updateOne(dto);
+  }
 
-  public async delete() {}
+  public async delete(userId: string): Promise<void> {
+    await User.deleteOne({ _id: userId });
+  }
 }
 
 export const userRepository = new UserRepository();
