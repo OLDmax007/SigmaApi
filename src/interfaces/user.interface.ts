@@ -2,6 +2,7 @@ import { GenderEnum } from "../enums/gender.enum";
 import { RoleEnum } from "../enums/role.enum";
 
 export interface IUser {
+  _id: string;
   firstName: string;
   lastName: string;
   age: number;
