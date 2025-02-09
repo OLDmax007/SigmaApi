@@ -17,7 +17,7 @@ userRouter.get(
 userRouter.get(
   "/email",
   authMiddleware.checkTokenByType(TokenEnum.ACCESS),
-  baseMiddleware.validateBody(UserValidator.getByEmail),
+  baseMiddleware.validateBody(UserValidator.checkEmail),
   userController.getByEmail
 );
 
@@ -33,6 +33,7 @@ userRouter.put(
   "/me",
 
   authMiddleware.checkTokenByType(TokenEnum.ACCESS),
+  baseMiddleware.validateBody(UserValidator.update),
   userController.update
 );
 userRouter.delete(

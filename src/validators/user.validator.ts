@@ -83,7 +83,7 @@ export class UserValidator {
     password: this.password.required(),
   });
 
-  public static getByEmail = Joi.object({
+  public static checkEmail = Joi.object({
     email: this.email.required(),
   });
 }
