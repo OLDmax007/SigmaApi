@@ -1,18 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import { ObjectSchema } from "joi";
-import { Types } from "mongoose";
+import { isObjectIdOrHexString } from "mongoose";
 
 import { ApiError } from "../errors/api.error";
 import logger from "../helpers/logger.helper";
 
-const { ObjectId } = Types;
-
 class BaseMiddleware {
-  public validateId(id: string) {
+  public validateId(uniqeId: string) {
     return (req: Request, res: Response, next: NextFunction) => {
       try {
-        const id = req.params.id;
-        if (ObjectId.isValid(id)) {
+        const id = req.params[uniqeId];
+        if (!isObjectIdOrHexString(id)) {
           return next(new ApiError("Invalid ID format", 400));
         }
         next();

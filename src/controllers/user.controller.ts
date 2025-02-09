@@ -18,7 +18,7 @@ class UserController {
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = req.params.userId;
-      const result = await userService.getByFilters(userId);
+      const result = await userService.getById(userId);
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);

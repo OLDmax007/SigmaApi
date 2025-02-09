@@ -23,6 +23,7 @@ class AuthMiddleware {
         }
 
         const tokenPayload = tokenService.verifyToken(token, type);
+
         const pair = await tokenRepository.getByParams({
           userId: tokenPayload.userId,
         });
@@ -36,7 +37,7 @@ class AuthMiddleware {
         next();
       } catch (e) {
         logger.error(e.message);
-        next(new ApiError(e.details[0].message, 400));
+        next(e);
       }
     };
   }
