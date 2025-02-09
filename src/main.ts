@@ -1,12 +1,18 @@
-import express from "express";
+import express, { NextFunction, Request, Response } from "express";
 import * as mongoose from "mongoose";
 
 import { config } from "./configs/configuration";
+import { ApiError } from "./errors/api.error";
+import logger from "./helpers/logger.helper";
+import { authRouter } from "./routes/auth.router";
 import { userRouter } from "./routes/user.router";
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const start = async () => {
+  app.use("/api/auth", authRouter);
   app.use("/api/users", userRouter);
 
   app.use(
@@ -19,7 +25,7 @@ const start = async () => {
   );
 
   process.on("uncaughtException", (error) => {
-    console.error("Uncaught Exception:", error);
+    logger.error("Uncaught Exception: ", error);
     process.exit(1);
   });
 

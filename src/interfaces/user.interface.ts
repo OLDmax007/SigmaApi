@@ -1,5 +1,6 @@
 import { GenderEnum } from "../enums/gender.enum";
 import { RoleEnum } from "../enums/role.enum";
+import { ITokenPair } from "./token.interface";
 
 export interface IUser {
   _id: string;
@@ -14,6 +15,11 @@ export interface IUser {
   role: RoleEnum;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface IUserWithTokens {
+  user: IUser;
+  tokens: ITokenPair;
 }
 
 export type IUserCreate = Omit<IUser, "_id" | "createdAt" | "updatedAt">;

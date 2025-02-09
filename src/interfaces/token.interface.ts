@@ -2,7 +2,7 @@ import { RoleEnum } from "../enums/role.enum";
 
 export interface IToken {
   _id: string;
-  _userId: string;
+  userId: string;
   accessToken: string;
   refreshToken: string;
   createdAt: Date;
@@ -12,7 +12,7 @@ export interface IToken {
 export type ITokenPair = Pick<IToken, "accessToken" | "refreshToken">;
 export type ITokenPairAndId = Pick<
   IToken,
-  "_userId" | "accessToken" | "refreshToken"
+  "userId" | "accessToken" | "refreshToken"
 >;
 
 export interface ITokenPayload {
