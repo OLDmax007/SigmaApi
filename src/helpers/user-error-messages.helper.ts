@@ -1,4 +1,4 @@
-export const errorMessages = {
+export const userErrorMessages = {
   firstName: {
     "string.base": "The first name must be a string",
     "string.empty": "The first name can not be empty",

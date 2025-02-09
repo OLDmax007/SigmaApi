@@ -3,7 +3,7 @@ import Joi from "joi";
 import { regexConstant } from "../constants/regex.constant";
 import { GenderEnum } from "../enums/gender.enum";
 import { RoleEnum } from "../enums/role.enum";
-import { errorMessages } from "../helpers/error-messages.helper";
+import { userErrorMessages } from "../helpers/user-error-messages.helper";
 
 export class UserValidator {
   private static firstName = Joi.string()
@@ -11,52 +11,55 @@ export class UserValidator {
     .max(15)
     .regex(regexConstant.firstName)
     .trim()
-    .messages(errorMessages.firstName);
+    .messages(userErrorMessages.firstName);
 
   private static lastName = Joi.string()
     .min(5)
     .max(30)
     .regex(regexConstant.lastName)
     .trim()
-    .messages(errorMessages.lastName);
+    .messages(userErrorMessages.lastName);
 
   private static password = Joi.string()
     .regex(regexConstant.password)
     .min(3)
     .max(20)
     .trim()
-    .messages(errorMessages.password);
+    .messages(userErrorMessages.password);
 
   private static email = Joi.string()
     .regex(regexConstant.email)
     .min(3)
     .max(30)
     .trim()
-    .messages(errorMessages.email);
+    .messages(userErrorMessages.email);
 
-  private static age = Joi.number().min(18).max(90).messages(errorMessages.age);
+  private static age = Joi.number()
+    .min(18)
+    .max(90)
+    .messages(userErrorMessages.age);
 
   private static role = Joi.string()
 
     .valid(...Object.values(RoleEnum))
     .default("user")
     .trim()
-    .messages(errorMessages.role);
+    .messages(userErrorMessages.role);
 
   private static gender = Joi.string()
     .valid(...Object.values(GenderEnum))
     .trim()
-    .messages(errorMessages.gender);
+    .messages(userErrorMessages.gender);
 
   private static statusMarried = Joi.boolean().messages(
-    errorMessages.statusMarried
+    userErrorMessages.statusMarried
   );
 
   private static phone = Joi.string()
     .optional()
     .regex(regexConstant.phone)
     .trim()
-    .messages(errorMessages.phone);
+    .messages(userErrorMessages.phone);
 
   public static create = Joi.object({
     firstName: this.firstName.required(),
