@@ -8,3 +8,11 @@ export interface IPost {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type IPostCreate = Pick<
+  IPost,
+  "title" | "author" | "description" | "content"
+>;
+export type IPostUpdate = Partial<
+  Pick<IPost, "title" | "author" | "description" | "content">
+>;
