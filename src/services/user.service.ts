@@ -1,18 +1,18 @@
 import { ApiError } from "../errors/api.error";
 import { ITokenPayload } from "../interfaces/token.interface";
-import { IUserUpdate } from "../interfaces/user.interface";
+import { IUser, IUserUpdate } from "../interfaces/user.interface";
 import { tokenRepository } from "../repositories/token.repository";
 import { userRepository } from "../repositories/user.repository";
 
 class UserService {
-  public async getByFilters(query) {
+  public async getByFilters(query): Promise<IUser[]> {
     return await userRepository.getByFilters(query);
   }
-  public async getById(userId: string) {
+  public async getById(userId: string): Promise<IUser> {
     return await userRepository.getById(userId);
   }
 
-  public async getByEmail(email: string) {
+  public async getByEmail(email: string): Promise<IUser> {
     const user = await userRepository.getByEmail(email);
     if (!user) {
       throw new ApiError("User not found", 400);
@@ -20,11 +20,14 @@ class UserService {
     return user;
   }
 
-  public async update(tokenPayload: ITokenPayload, dto: IUserUpdate) {
+  public async update(
+    tokenPayload: ITokenPayload,
+    dto: IUserUpdate
+  ): Promise<IUser> {
     return await userRepository.update(tokenPayload.userId, dto);
   }
 
-  public async delete(tokenPayload: ITokenPayload) {
+  public async delete(tokenPayload: ITokenPayload): Promise<void> {
     await Promise.all([
       tokenRepository.deleteByParams({ userId: tokenPayload.userId }),
       userRepository.delete(tokenPayload.userId),
