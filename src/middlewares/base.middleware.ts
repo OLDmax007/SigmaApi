@@ -15,6 +15,7 @@ class BaseMiddleware {
         if (ObjectId.isValid(id)) {
           return next(new ApiError("Invalid ID format", 400));
         }
+        next();
       } catch (e) {
         logger.error(e.message);
         next(new ApiError(e.details[0].message, 400));
@@ -26,6 +27,7 @@ class BaseMiddleware {
     return async (req: Request, res: Response, next: NextFunction) => {
       try {
         req.body = await validator.validateAsync(req.body);
+        next();
       } catch (e) {
         {
           logger.error(e.message);
