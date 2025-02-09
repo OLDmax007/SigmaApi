@@ -5,6 +5,7 @@ import { config } from "./configs/configuration";
 import { ApiError } from "./errors/api.error";
 import logger from "./helpers/logger.helper";
 import { authRouter } from "./routes/auth.router";
+import { postRouter } from "./routes/post.router";
 import { userRouter } from "./routes/user.router";
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 const start = async () => {
   app.use("/api/auth", authRouter);
   app.use("/api/users", userRouter);
+  app.use("/api/posts", postRouter);
 
   app.use(
     "*",

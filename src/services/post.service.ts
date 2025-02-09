@@ -9,8 +9,8 @@ class PostService {
     const filters = buildFilterConditions(query);
     return await postRepository.getByFilters(filters);
   }
-  public async getById(postId: string): Promise<IPost> {
-    return await postRepository.getById(postId);
+  public async getById(userId: string): Promise<IPost> {
+    return await postRepository.getById(userId);
   }
 
   public async update(

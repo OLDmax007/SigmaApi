@@ -1,12 +1,19 @@
-import {Router} from "express";
+import { Router } from "express";
 
-import {postController} from "../controllers/post.controller";
-import {TokenTypeEnum} from "../enums/token-type.enum";
-import {authMiddleware} from "../middlewares/auth.middleware";
-import {baseMiddleware} from "../middlewares/base.middleware";
-// import {postValidator} from "../validators/post.validator";
+import { postController } from "../controllers/post.controller";
+import { TokenTypeEnum } from "../enums/token-type.enum";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import { baseMiddleware } from "../middlewares/base.middleware";
+import { PostValidator } from "../validators/post.validator";
 
 export const postRouter = Router();
+
+postRouter.post(
+  "/post",
+  authMiddleware.checkTokenByType(TokenTypeEnum.ACCESS),
+  baseMiddleware.validateBody(PostValidator.create),
+  postController.create
+);
 
 postRouter.get(
   "/",
@@ -14,13 +21,11 @@ postRouter.get(
   postController.getByFilters
 );
 
-
-
 postRouter.get(
-  "/:postId",
+  "/:userId",
 
   authMiddleware.checkTokenByType(TokenTypeEnum.ACCESS),
-  baseMiddleware.validateId("postId"),
+  baseMiddleware.validateId("userId"),
   postController.getById
 );
 
@@ -28,7 +33,7 @@ postRouter.put(
   "/post",
 
   authMiddleware.checkTokenByType(TokenTypeEnum.ACCESS),
-  // baseMiddleware.validateBody(postValidator.update),
+  baseMiddleware.validateBody(PostValidator.update),
   postController.update
 );
 postRouter.delete(

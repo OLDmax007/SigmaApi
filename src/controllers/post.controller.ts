@@ -1,9 +1,9 @@
-import {NextFunction, Request, Response} from "express";
+import { NextFunction, Request, Response } from "express";
 
 import logger from "../helpers/logger.helper";
-import {ITokenPayload} from "../interfaces/token.interface";
-import {IPostCreate, IPostUpdate} from "../interfaces/post.interface";
-import {postService} from "../services/post.service";
+import { IPostCreate, IPostUpdate } from "../interfaces/post.interface";
+import { ITokenPayload } from "../interfaces/token.interface";
+import { postService } from "../services/post.service";
 
 class PostController {
   public async getByFilters(req: Request, res: Response, next: NextFunction) {
@@ -19,8 +19,8 @@ class PostController {
 
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const postId = req.params.postId as string;
-      const result = await postService.getById(postId);
+      const userId = req.params.userId as string;
+      const result = await postService.getById(userId);
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);

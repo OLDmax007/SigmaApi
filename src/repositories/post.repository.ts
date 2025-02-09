@@ -1,8 +1,6 @@
-
+import { IPost, IPostCreate, IPostUpdate } from "../interfaces/post.interface";
 import { IFilteredConditions } from "../interfaces/query.interface";
-import {Post} from "../models/post.model";
-import {IPost, IPostCreate, IPostUpdate} from "../interfaces/post.interface";
-
+import { Post } from "../models/post.model";
 
 class PostRepository {
   public async create(dto: IPostCreate): Promise<IPost> {
@@ -13,8 +11,8 @@ class PostRepository {
     return await Post.find(filters);
   }
 
-  public async getById(postId: string): Promise<IPost> {
-    return await Post.findById(postId);
+  public async getById(userId: string): Promise<IPost> {
+    return await Post.findById(userId);
   }
 
   public async getByEmail(email: string): Promise<IPost> {
