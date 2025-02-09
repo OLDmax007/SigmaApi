@@ -17,7 +17,8 @@ class UserController {
 
   public async getById(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await userService.getByFilters(req.params.userId);
+      const userId = req.params.userId;
+      const result = await userService.getByFilters(userId);
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);
@@ -27,7 +28,8 @@ class UserController {
 
   public async getByEmail(req: Request, res: Response, next: NextFunction) {
     try {
-      const result = await userService.getByEmail(req.body.email);
+      const email = req.body.email;
+      const result = await userService.getByEmail(email);
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);
@@ -37,6 +39,10 @@ class UserController {
 
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
+      const dto = req.body;
+      const payload = req.res.locals.tokenPayload;
+      const result = await userService.update(payload, dto);
+      res.status(200).json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -45,6 +51,9 @@ class UserController {
 
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
+      const tokenPayload = req.res.locals.tokenPayload;
+      const result = await userService.delete(tokenPayload);
+      res.status(204).json(result);
     } catch (e) {
       logger.error(e);
       next(e);

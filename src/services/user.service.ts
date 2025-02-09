@@ -1,3 +1,5 @@
+import { ITokenPayload } from "../interfaces/token.interface";
+import { IUserUpdate } from "../interfaces/user.interface";
 import { userRepository } from "../repositories/user.repository";
 
 class UserService {
@@ -12,9 +14,13 @@ class UserService {
     return await userRepository.getByEmail(email);
   }
 
-  public async update() {}
+  public async update(tokenPayload: ITokenPayload, dto: IUserUpdate) {
+    return await userRepository.update(tokenPayload.userId, dto);
+  }
 
-  public async delete() {}
+  public async delete(tokenPayload: ITokenPayload) {
+    return await userRepository.delete(tokenPayload.userId);
+  }
 }
 
 export const userService = new UserService();

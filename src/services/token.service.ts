@@ -5,18 +5,18 @@ import { TokenEnum } from "../enums/token.enum";
 import { ITokenPair, ITokenPayload } from "../interfaces/token.interface";
 
 class TokenService {
-  public generateTokens(payload: ITokenPayload): ITokenPair {
+  public generateTokens(tokenPayload: ITokenPayload): ITokenPair {
     const options = {
       algorithm: config.jwt.algorithm as jwt.Algorithm,
       issuer: config.jwt.issuer,
     };
 
-    const accessToken = jwt.sign(payload, config.jwt.accessSecret, {
+    const accessToken = jwt.sign(tokenPayload, config.jwt.accessSecret, {
       ...options,
       expiresIn: config.jwt.accessExpiresIn,
     });
 
-    const refreshToken = jwt.sign(payload, config.jwt.refreshSecret, {
+    const refreshToken = jwt.sign(tokenPayload, config.jwt.refreshSecret, {
       ...options,
       expiresIn: config.jwt.refreshExpiresIn,
     });
@@ -38,8 +38,7 @@ class TokenService {
         throw new Error("Invalid token type");
     }
 
-    const decode = jwt.verify(token, secret) as ITokenPayload;
-    return decode;
+    return jwt.verify(token, secret) as ITokenPayload;
   }
 }
 
