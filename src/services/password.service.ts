@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 
-import { passwordConstants } from "../constants/password.constants";
+import { passwordConstant } from "../constants/password.constant";
 
 class PasswordService {
   public async hashPassword(password: string): Promise<string> {
-    return await bcrypt.hash(password, passwordConstants.salt);
+    return await bcrypt.hash(password, passwordConstant.salt);
   }
 
   public async comparePassword(

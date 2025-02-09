@@ -28,16 +28,16 @@ class AuthService {
     const user = await userRepository.getByEmail(dto.email);
 
     if (!user) {
-      throw new ApiError("Entered email is incorrect", 401);
+      throw new ApiError("Entered email or password is incorrect", 401);
     }
 
-    const isPassword = passwordService.comparePassword(
-      user.password,
-      dto.password
+    const isPassword = await passwordService.comparePassword(
+      dto.password,
+      user.password
     );
 
     if (!isPassword) {
-      throw new ApiError("Entered password is incorrect", 401);
+      throw new ApiError("Entered email or password is incorrect", 401);
     }
 
     const tokens = tokenService.generateTokens({
