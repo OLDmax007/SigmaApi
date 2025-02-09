@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-import { regexpConstant } from "../constants/regexp.constant";
+import { regexConstant } from "../constants/regex.constant";
 import { GenderEnum } from "../enums/gender.enum";
 import { RoleEnum } from "../enums/role.enum";
 import { errorMessages } from "../helpers/error-messages.helper";
@@ -9,26 +9,26 @@ export class UserValidator {
   private static firstName = Joi.string()
     .min(3)
     .max(15)
-    .regex(regexpConstant.firstName)
+    .regex(regexConstant.firstName)
     .trim()
     .messages(errorMessages.firstName);
 
   private static lastName = Joi.string()
     .min(5)
     .max(30)
-    .regex(regexpConstant.lastName)
+    .regex(regexConstant.lastName)
     .trim()
     .messages(errorMessages.lastName);
 
   private static password = Joi.string()
-    .regex(regexpConstant.password)
+    .regex(regexConstant.password)
     .min(3)
     .max(20)
     .trim()
     .messages(errorMessages.password);
 
   private static email = Joi.string()
-    .regex(regexpConstant.email)
+    .regex(regexConstant.email)
     .min(3)
     .max(30)
     .trim()
@@ -54,7 +54,7 @@ export class UserValidator {
 
   private static phone = Joi.string()
     .optional()
-    .regex(regexpConstant.phone)
+    .regex(regexConstant.phone)
     .trim()
     .messages(errorMessages.phone);
 

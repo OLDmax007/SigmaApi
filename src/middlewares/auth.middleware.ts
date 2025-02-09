@@ -5,6 +5,7 @@ import { ApiError } from "../errors/api.error";
 import logger from "../helpers/logger.helper";
 import { tokenRepository } from "../repositories/token.repository";
 import { tokenService } from "../services/token.service";
+import {regexConstant} from "../constants/regex.constant";
 
 class AuthMiddleware {
   public checkTokenByType(type: TokenEnum) {
@@ -20,6 +21,10 @@ class AuthMiddleware {
 
         if (!token) {
           throw new ApiError("No token provided", 401);
+        }
+
+        if (!regexConstant.jwt.test(token)) {
+          throw new ApiError("Invalid token format", 401);
         }
 
         const tokenPayload = tokenService.verifyToken(token, type);
