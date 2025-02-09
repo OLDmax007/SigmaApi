@@ -71,10 +71,7 @@ class AuthMiddleware {
         }
 
         if (!field) {
-          throw new ApiError(
-            `${upperCaseFirst(fieldName)} is required`,
-            400
-          );
+          throw new ApiError(`${upperCaseFirst(fieldName)} is required`, 400);
         }
 
         const user: IUser = await User.findOne({ [fieldName]: field });
