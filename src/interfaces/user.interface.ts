@@ -24,7 +24,6 @@ export interface IUserWithTokens {
 
 export type IUserCreate = Omit<IUser, "_id" | "createdAt" | "updatedAt">;
 export type IUserLogin = Pick<IUser, "email" | "password">;
-export type IUserUpdate = Pick<
-  IUser,
-  "firstName" | "lastName" | "age" | "gender" | "statusMarried"
+export type IUserUpdate = Partial<
+  Pick<IUser, "firstName" | "lastName" | "age" | "gender" | "statusMarried">
 >;
