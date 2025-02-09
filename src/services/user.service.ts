@@ -1,6 +1,7 @@
 import { ApiError } from "../errors/api.error";
 import { ITokenPayload } from "../interfaces/token.interface";
 import { IUserUpdate } from "../interfaces/user.interface";
+import { tokenRepository } from "../repositories/token.repository";
 import { userRepository } from "../repositories/user.repository";
 
 class UserService {
@@ -20,12 +21,14 @@ class UserService {
   }
 
   public async update(tokenPayload: ITokenPayload, dto: IUserUpdate) {
-    const updatedUser = await userRepository.update(tokenPayload.userId, dto);
-    return updatedUser;
+    return await userRepository.update(tokenPayload.userId, dto);
   }
 
   public async delete(tokenPayload: ITokenPayload) {
-    return await userRepository.delete(tokenPayload.userId);
+    await Promise.all([
+      tokenRepository.deleteByParams({ userId: tokenPayload.userId }),
+      userRepository.delete(tokenPayload.userId),
+    ]);
   }
 }
 
