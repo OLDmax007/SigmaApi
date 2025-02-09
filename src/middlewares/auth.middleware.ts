@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { upperCaseFirst } from "text-case";
 
 import { regexConstant } from "../constants/regex.constant";
 import { TokenTypeEnum } from "../enums/token-type.enum";
@@ -70,13 +71,16 @@ class AuthMiddleware {
         }
 
         if (!field) {
-          throw new ApiError(`The ${fieldName.toUpperCase()} is required`, 400);
+          throw new ApiError(
+            `${upperCaseFirst(fieldName)} is required`,
+            400
+          );
         }
 
         const user: IUser = await User.findOne({ [fieldName]: field });
         if (user) {
           throw new ApiError(
-            `The ${fieldName.toUpperCase()} is already in use`,
+            `${upperCaseFirst(fieldName)} is already in use`,
             400
           );
         }
