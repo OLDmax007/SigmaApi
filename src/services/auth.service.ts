@@ -28,7 +28,10 @@ class AuthService {
       role: user.role,
     });
 
-    await tokenRepository.create({ ...tokens, userId: user._id });
+    await Promise.all([
+      tokenRepository.deleteByParams({ userId: user._id }),
+      tokenRepository.create({ ...tokens, userId: user._id }),
+    ]);
 
     return { user, tokens };
   }

@@ -9,7 +9,7 @@ const {
 
 const TokenSchema = new Schema(
   {
-    userId: { type: ObjectId, required: true, unique: true, ref: User },
+    userId: { type: ObjectId, required: true, ref: User },
     accessToken: { type: String, required: true },
     refreshToken: { type: String, required: true },
   },
