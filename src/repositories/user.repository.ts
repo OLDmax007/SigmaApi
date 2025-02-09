@@ -1,3 +1,4 @@
+import { IFilteredConditions } from "../interfaces/query.interface";
 import { IUser, IUserCreate, IUserUpdate } from "../interfaces/user.interface";
 import { User } from "../models/user.model";
 
@@ -6,8 +7,8 @@ class UserRepository {
     return await User.create(dto);
   }
 
-  public async getByFilters(query: Partial<IUser>): Promise<IUser[]> {
-    return await User.find(query);
+  public async getByFilters(filters: IFilteredConditions): Promise<IUser[]> {
+    return await User.find(filters);
   }
 
   public async getById(userId: string): Promise<IUser> {

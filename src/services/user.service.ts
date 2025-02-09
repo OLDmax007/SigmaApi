@@ -1,12 +1,15 @@
 import { ApiError } from "../errors/api.error";
+import { buildFilterConditions } from "../helpers/build-filter-conditions.helper";
+import { IQueryList } from "../interfaces/query.interface";
 import { ITokenPayload } from "../interfaces/token.interface";
 import { IUser, IUserUpdate } from "../interfaces/user.interface";
 import { tokenRepository } from "../repositories/token.repository";
 import { userRepository } from "../repositories/user.repository";
 
 class UserService {
-  public async getByFilters(query): Promise<IUser[]> {
-    return await userRepository.getByFilters(query);
+  public async getByFilters(query: IQueryList): Promise<IUser[]> {
+    const filters = buildFilterConditions(query);
+    return await userRepository.getByFilters(filters);
   }
   public async getById(userId: string): Promise<IUser> {
     return await userRepository.getById(userId);
