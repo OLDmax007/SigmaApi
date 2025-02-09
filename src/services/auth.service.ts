@@ -1,4 +1,5 @@
 import { ApiError } from "../errors/api.error";
+import { ITokenPayload } from "../interfaces/token.interface";
 import {
   IUserCreate,
   IUserLogin,
@@ -46,11 +47,19 @@ class AuthService {
     });
 
     await Promise.all([
-      tokenRepository.deleteByParams({ userId: user._id }),
+      tokenRepository.deleteOneByParams({ userId: user._id }),
       tokenRepository.create({ ...tokens, userId: user._id }),
     ]);
 
     return { user, tokens };
+  }
+
+  public async signOut(tokenPayload: ITokenPayload): Promise<void> {
+    await tokenRepository.deleteOneByParams({ userId: tokenPayload.userId });
+  }
+
+  public async signOutAll(tokenPayload: ITokenPayload): Promise<void> {
+    await tokenRepository.deleteAllByParams({ userId: tokenPayload.userId });
   }
 }
 

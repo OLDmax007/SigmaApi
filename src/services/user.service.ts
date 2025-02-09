@@ -29,7 +29,7 @@ class UserService {
 
   public async delete(tokenPayload: ITokenPayload): Promise<void> {
     await Promise.all([
-      tokenRepository.deleteByParams({ userId: tokenPayload.userId }),
+      tokenRepository.deleteOneByParams({ userId: tokenPayload.userId }),
       userRepository.delete(tokenPayload.userId),
     ]);
   }
