@@ -27,3 +27,5 @@ export type IUserLogin = Pick<IUser, "email" | "password">;
 export type IUserUpdate = Partial<
   Pick<IUser, "firstName" | "lastName" | "age" | "gender" | "statusMarried">
 >;
+
+export type IUserResponse = Omit<IUser, "phone" | "email" | "password">;

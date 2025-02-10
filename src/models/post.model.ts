@@ -12,7 +12,6 @@ const PostSchema = new Schema(
   {
     userId: { type: ObjectId, required: true, ref: User },
     title: { type: String, required: true },
-    author: { type: String, required: true },
     description: { type: String, required: false },
     content: { type: String, required: true },
   },
