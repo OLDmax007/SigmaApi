@@ -3,6 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import logger from "../helpers/logger.helper";
 import { IPostCreate, IPostUpdate } from "../interfaces/post.interface";
 import { ITokenPayload } from "../interfaces/token.interface";
+import { postPresenter } from "../presents/post.presenter";
 import { postService } from "../services/post.service";
 
 class PostController {
@@ -11,7 +12,8 @@ class PostController {
       const payload = req.res.locals.tokenPayload as ITokenPayload;
       const dto = req.body as IPostCreate;
       const result = await postService.create(dto, payload);
-      res.status(201).json(result);
+      const response = postPresenter.toResponse(result);
+      res.status(201).json(response);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -35,7 +37,8 @@ class PostController {
       const postId = req.params.postId;
       const userId = req.res.locals.tokenPayload.userId;
       const result = await postService.updateById(postId, userId, dto);
-      res.json(result);
+      const response = postPresenter.toResponse(result);
+      res.json(response);
     } catch (e) {
       logger.error(e);
       next(e);
