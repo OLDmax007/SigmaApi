@@ -6,6 +6,7 @@ export const config = {
   basic: {
     port: process.env.PORT,
     frontUrl: process.env.FRONT_ULR,
+    urlPrefix: process.env.URL_PREFIX
   },
   database: {
     url: process.env.DB_URL,

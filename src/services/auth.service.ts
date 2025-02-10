@@ -31,7 +31,6 @@ class AuthService {
     if (!user) {
       throw new ApiError("Entered email or password is incorrect", 401);
     }
-
     const isPassword = await passwordService.comparePassword(
       dto.password,
       user.password
@@ -39,6 +38,17 @@ class AuthService {
 
     if (!isPassword) {
       throw new ApiError("Entered email or password is incorrect", 401);
+    }
+
+    const existingToken = await tokenRepository.getByParams({
+      userId: user._id,
+    });
+
+    if (existingToken) {
+      throw new ApiError(
+        "User is already logged in. Please log out first.",
+        401
+      );
     }
 
     const tokens = tokenService.generateTokens({

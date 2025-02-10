@@ -15,10 +15,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const start = async () => {
-  app.use("/api/auth", authRouter);
-  app.use("/api/users", userRouter);
-  app.use("/api/posts", postRouter);
-  app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+  app.use(`/${config.basic.urlPrefix}/auth`, authRouter);
+  app.use(`/${config.basic.urlPrefix}/users`, userRouter);
+  app.use(`/${config.basic.urlPrefix}/posts`, postRouter);
+  app.use(
+    `/${config.basic.urlPrefix}/docs`,
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerDocument)
+  );
 
   app.use(
     "*",

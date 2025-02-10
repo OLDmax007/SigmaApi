@@ -431,6 +431,9 @@
           "email": {
             "type": "string"
           },
+          "gender": {
+            "type": "string"
+          },
           "age": {
             "type": "integer"
           }

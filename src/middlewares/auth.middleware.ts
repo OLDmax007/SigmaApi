@@ -77,7 +77,7 @@ class AuthMiddleware {
         const user: IUser = await User.findOne({ [fieldName]: field });
         if (user) {
           throw new ApiError(
-            `${upperCaseFirst(fieldName)} is already in use`,
+            `User with such "${upperCaseFirst(fieldName)}" is already in use`,
             400
           );
         }
