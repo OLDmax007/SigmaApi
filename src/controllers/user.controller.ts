@@ -1,9 +1,9 @@
-import {NextFunction, Request, Response} from "express";
+import { NextFunction, Request, Response } from "express";
 
 import logger from "../helpers/logger.helper";
-import {ITokenPayload} from "../interfaces/token.interface";
-import {IUserUpdate} from "../interfaces/user.interface";
-import {userService} from "../services/user.service";
+import { ITokenPayload } from "../interfaces/token.interface";
+import { IUserUpdate } from "../interfaces/user.interface";
+import { userService } from "../services/user.service";
 
 class UserController {
   public async getByFilters(req: Request, res: Response, next: NextFunction) {

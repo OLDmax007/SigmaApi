@@ -12,7 +12,7 @@ class UserService {
     return await userRepository.getByFilters(filters);
   }
   public async getById(userId: string): Promise<IUser> {
-    const user =  await userRepository.getById(userId);
+    const user = await userRepository.getById(userId);
     if (!user) {
       throw new ApiError("User not found", 400);
     }
@@ -35,7 +35,7 @@ class UserService {
     if (!user) {
       throw new ApiError("User not found or not updated", 400);
     }
-    return user
+    return user;
   }
 
   public async delete(tokenPayload: ITokenPayload): Promise<void> {

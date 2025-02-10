@@ -1,7 +1,7 @@
-import {ApiError} from "../errors/api.error";
-import {IPost, IPostCreate, IPostUpdate} from "../interfaces/post.interface";
-import {ITokenPayload} from "../interfaces/token.interface";
-import {postRepository} from "../repositories/post.repository";
+import { ApiError } from "../errors/api.error";
+import { IPost, IPostCreate, IPostUpdate } from "../interfaces/post.interface";
+import { ITokenPayload } from "../interfaces/token.interface";
+import { postRepository } from "../repositories/post.repository";
 
 class PostService {
   public async create(
@@ -21,10 +21,7 @@ class PostService {
     return posts;
   }
 
-  public async updateById(
-    postId: string,
-    dto: IPostUpdate
-  ): Promise<IPost> {
+  public async updateById(postId: string, dto: IPostUpdate): Promise<IPost> {
     return await postRepository.updateById(postId, dto);
   }
 
