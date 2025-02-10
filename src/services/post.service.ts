@@ -1,7 +1,7 @@
-import { ApiError } from "../errors/api.error";
-import { IPost, IPostCreate, IPostUpdate } from "../interfaces/post.interface";
-import { ITokenPayload } from "../interfaces/token.interface";
-import { postRepository } from "../repositories/post.repository";
+import {ApiError} from "../errors/api.error";
+import {IPost, IPostCreate, IPostUpdate} from "../interfaces/post.interface";
+import {ITokenPayload} from "../interfaces/token.interface";
+import {postRepository} from "../repositories/post.repository";
 
 class PostService {
   public async create(
@@ -20,14 +20,27 @@ class PostService {
     return posts;
   }
 
-  public async updateById(postId: string, dto: IPostUpdate): Promise<IPost> {
+  public async updateById(
+    postId: string,
+    userId: string,
+    dto: IPostUpdate
+  ): Promise<IPost> {
+    const post = await postRepository.getOneById(postId);
+
+    if (post.userId !== userId) {
+      throw new ApiError("You can not update this post", 403);
+    }
+
     return await postRepository.updateById(postId, dto);
   }
 
-  public async deleteById(postId: string): Promise<void> {
+  public async deleteById(postId: string, userId: string): Promise<void> {
     const post = await postRepository.getOneById(postId);
     if (!post) {
       throw new ApiError("Post not found", 404);
+    }
+    if (post.userId !== userId) {
+      throw new ApiError("You can not delete this post", 403);
     }
 
     await postRepository.deleteById(postId);

@@ -33,7 +33,8 @@ class PostController {
     try {
       const dto = req.body as IPostUpdate;
       const postId = req.params.postId;
-      const result = await postService.updateById(postId, dto);
+      const userId = req.res.locals.tokenPayload.userId;
+      const result = await postService.updateById(postId, userId, dto);
       res.json(result);
     } catch (e) {
       logger.error(e);
@@ -44,7 +45,8 @@ class PostController {
   public async deleteById(req: Request, res: Response, next: NextFunction) {
     try {
       const postId = req.params.postId;
-      await postService.deleteById(postId);
+      const userId = req.res.locals.tokenPayload.userId;
+      await postService.deleteById(postId, userId);
       res.sendStatus(204);
     } catch (e) {
       logger.error(e);
