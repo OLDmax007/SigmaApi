@@ -27,7 +27,7 @@ class PostService {
   ): Promise<IPost> {
     const post = await postRepository.getOneById(postId);
 
-    if (post.userId !== userId) {
+    if (post.userId.toString() !== userId) {
       throw new ApiError("You can not update this post", 403);
     }
 
@@ -39,7 +39,7 @@ class PostService {
     if (!post) {
       throw new ApiError("Post not found", 404);
     }
-    if (post.userId !== userId) {
+    if (post.userId.toString() !== userId) {
       throw new ApiError("You can not delete this post", 403);
     }
 

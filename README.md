@@ -28,24 +28,22 @@ To set up and run the project locally, follow these steps:
 
 2. Install dependencies:
    ```bash
-      cd project-name
+   cd project-name
    npm install
 
 3. Create a .env file for environment variables
    Make sure to create a .env file in the root directory with the following variables:
-   ```bash
-   PORT=3000
-FRONT_ULR="http://localhost:"
-URL_PREFIX="api"
-DB_URL="mongodb+srv://OLDmax007:4qz6cMOx3kCyG6oF@clusterdata.behv7.mongodb.net/"
 
-JWT_ALGORITHM="HS512"
-JWT_ISSUER="users-api"
-JWT_ACCESS_SECRET="sobaka-baka"
-JWT_REFRESH_SECRET="kolobok-102"
-JWT_ACCESS_EXPIRES_IN="60 m"
-JWT_REFRESH_EXPIRES_IN="60 m"
-
+   - `PORT=3000`
+   - `FRONT_ULR="http://localhost:"`
+   - `URL_PREFIX="api"`
+   - `DB_URL="your_db_url"`
+   - `JWT_ALGORITHM="HS512"`
+   - `JWT_ISSUER="your_name"`
+   - `JWT_ACCESS_SECRET="your_name_secret`
+   - `JWT_REFRESH_SECRET="your_name_secret"`
+   - `JWT_ACCESS_EXPIRES_IN="set_time"`
+   - `JWT_REFRESH_EXPIRES_IN="set_time"`
 
 
 4. Start the server:
