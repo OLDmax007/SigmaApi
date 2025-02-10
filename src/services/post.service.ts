@@ -21,20 +21,20 @@ class PostService {
     return posts;
   }
 
-  public async update(
+  public async updateById(
     postId: string,
     dto: IPostUpdate
   ): Promise<IPost> {
-    return await postRepository.update(postId, dto);
+    return await postRepository.updateById(postId, dto);
   }
 
-  public async delete(postId: string): Promise<void> {
+  public async deleteById(postId: string): Promise<void> {
     const post = await postRepository.getOneById(postId);
     if (!post) {
       throw new ApiError("Post not found", 404);
     }
 
-    await postRepository.delete(postId);
+    await postRepository.deleteById(postId);
   }
 }
 

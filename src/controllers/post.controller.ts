@@ -29,11 +29,11 @@ class PostController {
     }
   }
 
-  public async update(req: Request, res: Response, next: NextFunction) {
+  public async updateById(req: Request, res: Response, next: NextFunction) {
     try {
       const dto = req.body as IPostUpdate;
       const postId = req.params.postId;
-      const result = await postService.update(postId, dto);
+      const result = await postService.updateById(postId, dto);
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);
@@ -41,10 +41,10 @@ class PostController {
     }
   }
 
-  public async delete(req: Request, res: Response, next: NextFunction) {
+  public async deleteById(req: Request, res: Response, next: NextFunction) {
     try {
       const postId = req.params.postId;
-      await postService.delete(postId);
+      await postService.deleteById(postId);
       res.status(200).json({ message: "Post was deleted" });
     } catch (e) {
       logger.error(e);
