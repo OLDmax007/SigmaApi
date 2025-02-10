@@ -18,7 +18,7 @@ class UserService {
     return users;
   }
   public async getById(userId: string): Promise<IUser> {
-    const user = await userRepository.getById(userId);
+    const user = await userRepository.getById(userId)
     if (!user) {
       throw new ApiError("User not found", 404);
     }

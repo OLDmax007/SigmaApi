@@ -1,6 +1,6 @@
-import { GenderEnum } from "../enums/gender.enum";
-import { RoleEnum } from "../enums/role.enum";
-import { ITokenPair } from "./token.interface";
+import {GenderEnum} from "../enums/gender.enum";
+import {RoleEnum} from "../enums/role.enum";
+import {ITokenPair} from "./token.interface";
 
 export interface IUser {
   _id: string;
