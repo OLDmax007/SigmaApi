@@ -9,12 +9,18 @@ import { userRepository } from "../repositories/user.repository";
 class UserService {
   public async getByFilters(query: IQueryList): Promise<IUser[]> {
     const filters = buildFilterConditions(query);
-    return await userRepository.getByFilters(filters);
+    const users = await userRepository.getByFilters(filters);
+
+    if (!users) {
+      throw new ApiError("Users not found", 404);
+    }
+
+    return users;
   }
   public async getById(userId: string): Promise<IUser> {
     const user = await userRepository.getById(userId);
     if (!user) {
-      throw new ApiError("User not found", 400);
+      throw new ApiError("User not found", 404);
     }
     return user;
   }
@@ -22,7 +28,7 @@ class UserService {
   public async getByEmail(email: string): Promise<IUser> {
     const user = await userRepository.getByEmail(email);
     if (!user) {
-      throw new ApiError("User not found", 400);
+      throw new ApiError("User not found", 404);
     }
     return user;
   }
@@ -33,7 +39,7 @@ class UserService {
   ): Promise<IUser> {
     const user = await userRepository.updateById(tokenPayload.userId, dto);
     if (!user) {
-      throw new ApiError("User not found or not updated", 400);
+      throw new ApiError("User not found or not updated", 404);
     }
     return user;
   }

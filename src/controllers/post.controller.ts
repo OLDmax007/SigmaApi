@@ -11,7 +11,7 @@ class PostController {
       const payload = req.res.locals.tokenPayload as ITokenPayload;
       const dto = req.body as IPostCreate;
       const result = await postService.create(dto, payload);
-      res.status(200).json(result);
+      res.status(201).json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -22,7 +22,7 @@ class PostController {
     try {
       const userId = req.params.userId as string;
       const result = await postService.getAllById(userId);
-      res.status(200).json(result);
+      res.json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -34,7 +34,7 @@ class PostController {
       const dto = req.body as IPostUpdate;
       const postId = req.params.postId;
       const result = await postService.updateById(postId, dto);
-      res.status(200).json(result);
+      res.json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -45,7 +45,7 @@ class PostController {
     try {
       const postId = req.params.postId;
       await postService.deleteById(postId);
-      res.status(200).json({ message: "Post was deleted" });
+      res.sendStatus(204);
     } catch (e) {
       logger.error(e);
       next(e);

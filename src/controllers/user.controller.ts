@@ -10,7 +10,7 @@ class UserController {
     try {
       const query = req.query;
       const result = await userService.getByFilters(query);
-      res.status(200).json(result);
+      res.json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -21,7 +21,7 @@ class UserController {
     try {
       const userId = req.params.userId as string;
       const result = await userService.getById(userId);
-      res.status(200).json(result);
+      res.json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -32,7 +32,7 @@ class UserController {
     try {
       const email = req.body.email as string;
       const result = await userService.getByEmail(email);
-      res.status(200).json(result);
+      res.json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -44,7 +44,7 @@ class UserController {
       const dto = req.body as IUserUpdate;
       const payload = req.res.locals.tokenPayload as ITokenPayload;
       const result = await userService.update(payload, dto);
-      res.status(200).json(result);
+      res.json(result);
     } catch (e) {
       logger.error(e);
       next(e);
@@ -55,7 +55,7 @@ class UserController {
     try {
       const tokenPayload = req.res.locals.tokenPayload as ITokenPayload;
       await userService.delete(tokenPayload);
-      res.status(200).json({ message: "User was deleted" });
+      res.sendStatus(204);
     } catch (e) {
       logger.error(e);
       next(e);
