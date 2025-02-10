@@ -6,33 +6,22 @@ import { ITokenPayload } from "../interfaces/token.interface";
 import { postService } from "../services/post.service";
 
 class PostController {
-  public async getByFilters(req: Request, res: Response, next: NextFunction) {
-    try {
-      const query = req.query;
-      const result = await postService.getByFilters(query);
-      res.status(200).json(result);
-    } catch (e) {
-      logger.error(e);
-      next(e);
-    }
-  }
-
-  public async getById(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userId = req.params.userId as string;
-      const result = await postService.getById(userId);
-      res.status(200).json(result);
-    } catch (e) {
-      logger.error(e);
-      next(e);
-    }
-  }
-
   public async create(req: Request, res: Response, next: NextFunction) {
     try {
-      const dto = req.body as IPostCreate;
       const payload = req.res.locals.tokenPayload as ITokenPayload;
-      const result = await postService.update(payload, dto);
+      const dto = req.body as IPostCreate;
+      const result = await postService.create(dto, payload);
+      res.status(200).json(result);
+    } catch (e) {
+      logger.error(e);
+      next(e);
+    }
+  }
+
+  public async getAllById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = req.params.userId as string;
+      const result = await postService.getAllById(userId);
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);
@@ -43,8 +32,8 @@ class PostController {
   public async update(req: Request, res: Response, next: NextFunction) {
     try {
       const dto = req.body as IPostUpdate;
-      const payload = req.res.locals.tokenPayload as ITokenPayload;
-      const result = await postService.update(payload, dto);
+      const postId = req.params.postId;
+      const result = await postService.update(postId, dto);
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);
@@ -54,9 +43,9 @@ class PostController {
 
   public async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const tokenPayload = req.res.locals.tokenPayload as ITokenPayload;
-      await postService.delete(tokenPayload);
-      res.status(204).json({ message: "Post was deleted" });
+      const postId = req.params.postId;
+      await postService.delete(postId);
+      res.status(200).json({ message: "Post was deleted" });
     } catch (e) {
       logger.error(e);
       next(e);

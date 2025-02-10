@@ -9,28 +9,29 @@ export class UserValidator {
   private static firstName = Joi.string()
     .min(3)
     .max(15)
-    .regex(regexConstant.firstName)
+    .regex(regexConstant.user.firstName)
     .trim()
     .messages(userErrorMessages.firstName);
 
   private static lastName = Joi.string()
     .min(5)
     .max(30)
-    .regex(regexConstant.lastName)
+    .regex(regexConstant.user.lastName)
     .trim()
     .messages(userErrorMessages.lastName);
 
   private static password = Joi.string()
-    .regex(regexConstant.password)
+    .regex(regexConstant.user.password)
     .min(3)
     .max(20)
     .trim()
     .messages(userErrorMessages.password);
 
   private static email = Joi.string()
-    .regex(regexConstant.email)
+
     .min(3)
     .max(30)
+    .regex(regexConstant.user.email)
     .trim()
     .messages(userErrorMessages.email);
 
@@ -57,7 +58,7 @@ export class UserValidator {
 
   private static phone = Joi.string()
     .optional()
-    .regex(regexConstant.phone)
+    .regex(regexConstant.user.phone)
     .trim()
     .messages(userErrorMessages.phone);
 

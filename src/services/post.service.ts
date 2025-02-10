@@ -1,27 +1,40 @@
-import { buildFilterConditions } from "../helpers/build-filter-conditions.helper";
-import { IPost, IPostUpdate } from "../interfaces/post.interface";
-import { IQueryList } from "../interfaces/query.interface";
-import { ITokenPayload } from "../interfaces/token.interface";
-import { postRepository } from "../repositories/post.repository";
+import {ApiError} from "../errors/api.error";
+import {IPost, IPostCreate, IPostUpdate} from "../interfaces/post.interface";
+import {ITokenPayload} from "../interfaces/token.interface";
+import {postRepository} from "../repositories/post.repository";
 
 class PostService {
-  public async getByFilters(query: IQueryList): Promise<IPost[]> {
-    const filters = buildFilterConditions(query);
-    return await postRepository.getByFilters(filters);
+  public async create(
+    dto: IPostCreate,
+    tokenPayload: ITokenPayload
+  ): Promise<IPost> {
+    console.log("tone", tokenPayload);
+    return await postRepository.create(dto, tokenPayload.userId);
   }
-  public async getById(userId: string): Promise<IPost> {
-    return await postRepository.getById(userId);
+
+  public async getAllById(userId: string): Promise<IPost[]> {
+    const posts = await postRepository.getAllById(userId);
+    if (!posts) {
+      throw new ApiError("Posts not found", 404);
+    }
+
+    return posts;
   }
 
   public async update(
-    tokenPayload: ITokenPayload,
+    postId: string,
     dto: IPostUpdate
   ): Promise<IPost> {
-    return await postRepository.update(tokenPayload.userId, dto);
+    return await postRepository.update(postId, dto);
   }
 
-  public async delete(tokenPayload: ITokenPayload): Promise<void> {
-    await postRepository.delete(tokenPayload.userId);
+  public async delete(postId: string): Promise<void> {
+    const post = await postRepository.getOneById(postId);
+    if (!post) {
+      throw new ApiError("Post not found", 404);
+    }
+
+    await postRepository.delete(postId);
   }
 }
 

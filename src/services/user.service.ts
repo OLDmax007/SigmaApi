@@ -12,7 +12,11 @@ class UserService {
     return await userRepository.getByFilters(filters);
   }
   public async getById(userId: string): Promise<IUser> {
-    return await userRepository.getById(userId);
+    const user =  await userRepository.getById(userId);
+    if (!user) {
+      throw new ApiError("User not found", 400);
+    }
+    return user;
   }
 
   public async getByEmail(email: string): Promise<IUser> {
@@ -27,7 +31,11 @@ class UserService {
     tokenPayload: ITokenPayload,
     dto: IUserUpdate
   ): Promise<IUser> {
-    return await userRepository.update(tokenPayload.userId, dto);
+    const user = await userRepository.update(tokenPayload.userId, dto);
+    if (!user) {
+      throw new ApiError("User not found or not updated", 400);
+    }
+    return user
   }
 
   public async delete(tokenPayload: ITokenPayload): Promise<void> {

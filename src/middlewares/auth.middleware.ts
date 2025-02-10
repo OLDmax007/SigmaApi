@@ -27,7 +27,7 @@ class AuthMiddleware {
           throw new ApiError("No token provided", 401);
         }
 
-        if (!regexConstant.jwt.test(token)) {
+        if (!regexConstant.user.jwt.test(token)) {
           throw new ApiError("Invalid token format", 401);
         }
 

@@ -1,30 +1,27 @@
 import { IPost, IPostCreate, IPostUpdate } from "../interfaces/post.interface";
-import { IFilteredConditions } from "../interfaces/query.interface";
 import { Post } from "../models/post.model";
 
 class PostRepository {
-  public async create(dto: IPostCreate): Promise<IPost> {
-    return await Post.create(dto);
+  public async create(dto: IPostCreate, userId: string): Promise<IPost> {
+    console.log("Creating post with:", { ...dto, userId });
+    return await Post.create({ ...dto, userId });
   }
 
-  public async getByFilters(filters: IFilteredConditions): Promise<IPost[]> {
-    return await Post.find(filters);
+  public async getOneById(postId: string): Promise<IPost> {
+    return await Post.findById({ _id: postId });
   }
 
-  public async getById(userId: string): Promise<IPost> {
-    return await Post.findById(userId);
+  public async getAllById(userId: string): Promise<IPost[]> {
+    return await Post.find({ userId });
   }
 
-  public async getByEmail(email: string): Promise<IPost> {
-    return await Post.findOne({ email });
+  public async update(postId: string, dto: IPostUpdate): Promise<IPost> {
+    console.log(postId)
+    return await Post.findByIdAndUpdate({ _id: postId }, dto, { new: true });
   }
 
-  public async update(PostId: string, dto: IPostUpdate): Promise<IPost> {
-    return await Post.findOneAndUpdate({ _id: PostId }, dto, { new: true });
-  }
-
-  public async delete(PostId: string): Promise<void> {
-    await Post.deleteOne({ _id: PostId });
+  public async delete(postId: string): Promise<void> {
+    await Post.deleteOne({ _id: postId.toString() });
   }
 }
 

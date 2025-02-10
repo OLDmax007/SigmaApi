@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response } from "express";
+import {NextFunction, Request, Response} from "express";
 
 import logger from "../helpers/logger.helper";
-import { ITokenPayload } from "../interfaces/token.interface";
-import { IUserUpdate } from "../interfaces/user.interface";
-import { userService } from "../services/user.service";
+import {ITokenPayload} from "../interfaces/token.interface";
+import {IUserUpdate} from "../interfaces/user.interface";
+import {userService} from "../services/user.service";
 
 class UserController {
   public async getByFilters(req: Request, res: Response, next: NextFunction) {
@@ -55,7 +55,7 @@ class UserController {
     try {
       const tokenPayload = req.res.locals.tokenPayload as ITokenPayload;
       await userService.delete(tokenPayload);
-      res.status(204).json({ message: "User was deleted" });
+      res.status(200).json({ message: "User was deleted" });
     } catch (e) {
       logger.error(e);
       next(e);

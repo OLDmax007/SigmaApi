@@ -7,28 +7,28 @@ export class PostValidator {
   private static title = Joi.string()
     .min(5)
     .max(30)
-    .regex(regexConstant.firstName)
+    .regex(regexConstant.post.title)
     .trim()
     .messages(postErrorMessages.title);
 
   private static author = Joi.string()
     .min(5)
     .max(30)
-    .regex(regexConstant.lastName)
+    .regex(regexConstant.post.author)
     .trim()
     .messages(postErrorMessages.author);
 
   private static description = Joi.string()
-    .regex(regexConstant.password)
     .min(5)
     .max(30)
+    .regex(regexConstant.post.description)
     .trim()
     .messages(postErrorMessages.description);
 
   private static content = Joi.string()
-    .regex(regexConstant.password)
     .min(10)
     .max(250)
+    .regex(regexConstant.post.content)
     .trim()
     .messages(postErrorMessages.content);
 
