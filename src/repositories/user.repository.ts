@@ -19,11 +19,11 @@ class UserRepository {
     return await User.findOne({ email });
   }
 
-  public async update(userId: string, dto: IUserUpdate): Promise<any> {
+  public async updateById(userId: string, dto: IUserUpdate): Promise<IUser> {
     return await User.findOneAndUpdate({ _id: userId }, dto, { new: true });
   }
 
-  public async delete(userId: string): Promise<void> {
+  public async deleteById(userId: string): Promise<void> {
     await User.deleteOne({ _id: userId });
   }
 }

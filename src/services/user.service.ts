@@ -31,7 +31,7 @@ class UserService {
     tokenPayload: ITokenPayload,
     dto: IUserUpdate
   ): Promise<IUser> {
-    const user = await userRepository.update(tokenPayload.userId, dto);
+    const user = await userRepository.updateById(tokenPayload.userId, dto);
     if (!user) {
       throw new ApiError("User not found or not updated", 400);
     }
@@ -41,7 +41,7 @@ class UserService {
   public async delete(tokenPayload: ITokenPayload): Promise<void> {
     await Promise.all([
       tokenRepository.deleteOneByParams({ userId: tokenPayload.userId }),
-      userRepository.delete(tokenPayload.userId),
+      userRepository.deleteById(tokenPayload.userId),
     ]);
   }
 }

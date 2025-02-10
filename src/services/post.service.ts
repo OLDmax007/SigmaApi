@@ -8,7 +8,6 @@ class PostService {
     dto: IPostCreate,
     tokenPayload: ITokenPayload
   ): Promise<IPost> {
-    console.log("tone", tokenPayload);
     return await postRepository.create(dto, tokenPayload.userId);
   }
 
