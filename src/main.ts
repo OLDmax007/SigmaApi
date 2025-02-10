@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import * as mongoose from "mongoose";
+import swaggerUi from "swagger-ui-express";
 
+import swaggerDocument from "../docs/swagger.json";
 import { config } from "./configs/configuration";
 import { ApiError } from "./errors/api.error";
 import logger from "./helpers/logger.helper";
@@ -16,6 +18,7 @@ const start = async () => {
   app.use("/api/auth", authRouter);
   app.use("/api/users", userRouter);
   app.use("/api/posts", postRouter);
+  app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
   app.use(
     "*",
