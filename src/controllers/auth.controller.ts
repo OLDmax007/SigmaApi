@@ -10,7 +10,7 @@ class AuthController {
     try {
       const dto = req.body as IUserCreate;
       const result = await authService.signUp(dto);
-      res.status(200).json(result);
+      res.status(201).json(result);
     } catch (e) {
       logger.error(e.message);
       next(e);
@@ -24,6 +24,17 @@ class AuthController {
       res.status(200).json(result);
     } catch (e) {
       logger.error(e);
+      next(e);
+    }
+  }
+
+  public async refresh(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tokenPayload = req.res.locals.tokenPayload as ITokenPayload;
+      const refreshToken = req.res.locals.refreshToken as string;
+      const result = await authService.refresh(tokenPayload, refreshToken);
+      res.status(201).json(result);
+    } catch (e) {
       next(e);
     }
   }

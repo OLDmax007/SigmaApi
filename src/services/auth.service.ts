@@ -1,5 +1,5 @@
 import { ApiError } from "../errors/api.error";
-import { ITokenPayload } from "../interfaces/token.interface";
+import { ITokenPair, ITokenPayload } from "../interfaces/token.interface";
 import {
   IUserCreate,
   IUserLogin,
@@ -62,6 +62,21 @@ class AuthService {
     ]);
 
     return { user, tokens };
+  }
+
+  public async refresh(
+    payload: ITokenPayload,
+    refreshToken: string
+  ): Promise<ITokenPair> {
+    await tokenRepository.deleteOneByParams({ refreshToken });
+    const tokens = tokenService.generateTokens({
+      userId: payload.userId,
+      role: payload.role,
+    });
+
+    await tokenRepository.create({ ...tokens, userId: payload.userId });
+
+    return tokens;
   }
 
   public async signOut(tokenPayload: ITokenPayload): Promise<void> {
